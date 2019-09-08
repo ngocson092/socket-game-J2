@@ -1409,8 +1409,9 @@
       }
 
 
-      console.log(location);
         dropDraggedPieceOnSquare(location)
+
+        resetState()
 
     }
 
@@ -1621,6 +1622,7 @@
 
         if(isClickOnPiece){
 
+
             /*
             * select piece
             * */
@@ -1630,12 +1632,13 @@
             var piece = element.find('img').attr('data-piece')
             if (!validSquare(location)) return
 
-            if(typeof piece != 'undefined'){
+            if(currentPosition.hasOwnProperty(location)){
 
 
 
                 var currentPieceTurn = piece.charAt(0);
                 console.log('turn',config.xiangqi.turn());
+                console.log('currentPieceTurn',currentPieceTurn);
                 if(currentPieceTurn == config.xiangqi.turn()){
 
                     currentSelectedPiece = piece
@@ -1643,6 +1646,7 @@
                     currentSelectedPieceTarget = null
 
                     if (validSquare(location)) {
+                        console.log('ok',squareElsIds);
                         config.onClickPiece(location,squareElsIds);
 
                     }
@@ -1653,6 +1657,9 @@
 
                             handleMovePiece(location)
                         }
+                        else{
+                            resetState()
+                        }
 
                     }
 
@@ -1660,7 +1667,9 @@
 
             }
 
-        }else{
+        }else if(currentSelectedPiece && currentSelectedPieceSource)
+
+        {
 
             /*
             * set new position
@@ -1676,18 +1685,16 @@
 
 
 
-            currentSelectedPiece = null
-            currentSelectedPieceSource = null
-            currentSelectedPieceTarget = location
+
+        }else{
+            resetState()
         }
+    }
 
-
-
-
-
-
-
-
+    function resetState() {
+        currentSelectedPiece = null
+        currentSelectedPieceSource = null
+        currentSelectedPieceTarget = null
     }
     function mousedownSquare (evt) {
       console.log('mousedownSquare');
@@ -1696,9 +1703,6 @@
       var _this = $(this);
       var location = isXYOnSquare(evt.pageX, evt.pageY)
       setHighlight(_this,location)
-
-
-
 
         console.log({currentSelectedPiece,
             currentSelectedPieceSource,
