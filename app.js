@@ -3,19 +3,28 @@ var express = require('express');
 var app = express();
 var Moniker = require('moniker');
 var elastical = require('elastical');
+const { Client } = require('@elastic/elasticsearch')
 var vnc = require('./src/server.js');
 var port = process.env.PORT || 5000;
-var client = new elastical.Client('localhost');
+var client = new Client({ node: 'http://localhost:9200' });
 var server = new vnc.Server();
 
 // trying to restore the latest server
-client.get('vinachess', 'latest', function (err, doc, res) {
-    if (err) console.log(err);
+
+
+client.search({
+    index: 'vinachess'
+}, (err, result) => {
+    if (err) {
+
+    }
     else {
-        server = new vnc.Server(doc);
+        server = new vnc.Server(result);
         console.log('\n\n*** Server restored successfully from previous state ***\n\n');
     }
-});
+})
+
+
 
 app.use(express.static(__dirname + '/public'));
 app.get("/js/:file", function(req, res){
@@ -26,25 +35,23 @@ app.get("/js/:file", function(req, res){
   });
 });
 
-var io = require('socket.io').listen(app.listen(port));
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
-console.log("Listening on port " + port);
 
-// need this for heroku
-io.configure(function () {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 10);
-});
 
 setTimeout(function() { io.sockets.emit('restart') }, 5000);
 
 // socket.io
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
     var user = addUser(socket.handshake.address.address);
     var board, room;
     socket.emit("welcome", user);
 
     socket.on('join', function(data) {
+
+        console.log({data});
+
         room = data.room;
         socket.join(room);
         user.room = room;
@@ -177,4 +184,9 @@ var findUser = function(username) {
 
 app.get("/g/:id", function(req, res){
   res.redirect('/?room=' + req.params.id);
+});
+
+
+http.listen(port, function(){
+    console.log('listening on *:'+port);
 });

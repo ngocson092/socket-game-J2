@@ -1,67 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VinaChess: the best place to play chess</title>
-  <link rel="stylesheet" href="chess.css" />
-  <link rel="stylesheet" href="jquery/jquery-ui.css" />
-  <link rel="stylesheet" href="clock/css/flipclock.css">
+  <title>cotuong</title>
+  <link rel="stylesheet" href="/library/xiangqiboardjs-0.2.0/css/xiangqiboard-0.2.0.min.css" />
 </head>
 <body>
-  <div class="main">
-    <div id="clock1"></div>
-    <div id="control">
-      <image id="rotate" src="images/rotate.png" title="Rotate Board">
-      <input id="undo" type="button" value="<< Undo">
-      <input id="redo" type="button" value="Redo >>">
-      <span id="turn"></span>
-      <input id="new" type="button" value="New Game">
-      <input id="room" type="button" value="New Room">
-      <input id="hint" type="button" value="?">
-      <span id="status"></span>
-    </div>
-    <div id="playarea">
-      <div id="board"></div>
-      <div id="content">
-        <div id="welcome"></div>
-        <div id="tabs">
-          <ul>
-            <li><a href="#moves">Moves</a></li>
-            <li><a href="#notes">Notes</a></li>
-            <li><a href="#users">Users</a></li>
-            <li><a href="#chats">Chats</a></li>
-          </ul>
-          <div id="moves"></div>
-          <div id="notes">
-            <textarea id="notefield"></textarea>
-            <input id="addnote" type="button" value="Add Note">
-            <input id="loadgame" type="button" value="Load Game">
-            <span id="notestatus">Note has been saved!</span>
-            <span id="loadstatus">Game has been loaded!</span>
-          </div>
-          <div id="users"></div>
-          <div id="chats">
-            <input id="field">
-            <input id="send" type="button" value="send">
-            <div id="chat"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="clock2"></div>
-  </div>
-  <div id="tree"></div>
+<style type="text/css">
+  .highlight {
+    box-shadow: inset 0 0 3px 3px white;
+  }
+</style>
 
-<script src="jquery/jquery.min.js"></script>
-<script src="jquery/jquery-ui.min.js"></script>
+<div id="myBoard" style="width: 450px"></div>
+<button id="button">test</button>
+<script src="/library/jquery-3.2.1.min.js" type="application/javascript"></script>
+<script src="/library/xiangqiboardjs-0.2.0/js/xiangqi.min.js" type="application/javascript"></script>
+<script src="/library/xiangqiboardjs-0.2.0/js/xiangqiboard-0.2.0.js" type="application/javascript"></script>
+<!--<script src="/library/xiangqiboardjs-0.2.0/js/goc/GOC-xiangqiboard-0.2.0.js" type="application/javascript"></script>-->
+
+
 <script src="/socket.io/socket.io.js"></script>
-<script src="d3.min.js"></script>
-<script src="js/server.js"></script>
-<script src="js/score.js"></script>
-<script src="js/search.js"></script>
-<script src="tree.js"></script>
-<script src="chess.js"></script>
-<script src="clock/js/flipclock/libs/prefixfree.min.js"></script>
-<script src="clock/js/flipclock/flipclock.min.js"></script>
+<script src="/game.js"></script>
+
 
 </body>
 </html>

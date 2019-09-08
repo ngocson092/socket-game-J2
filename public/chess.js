@@ -15,6 +15,9 @@ window.onload = function() {
     var allUsers = document.getElementById("users");
     var chatElem = document.getElementById("chat");
     var boardElem = document.getElementById("board");
+
+    console.log({vnc});
+
     var board, username, last, rotation = vnc.Piece.BLACK;
     var waitingForOther = false;
     var url = document.URL;
