@@ -6,34 +6,14 @@ var elastical = require('elastical');
 const { Client } = require('@elastic/elasticsearch')
 var vnc = require('./src/server.js');
 var port = process.env.PORT || 5000;
-var client = new Client({ node: 'http://localhost:9200' });
+
 var server = new vnc.Server();
 
-// trying to restore the latest server
-
-
-client.search({
-    index: 'vinachess'
-}, (err, result) => {
-    if (err) {
-
-    }
-    else {
-        server = new vnc.Server(result);
-        console.log('\n\n*** Server restored successfully from previous state ***\n\n');
-    }
-})
 
 
 
 app.use(express.static(__dirname + '/public'));
-app.get("/js/:file", function(req, res){
-  fs.readFile('./src/' + req.params.file, function (err, data) {
-    if(err) throw err;
-    res.writeHead(200);
-    res.end(data);
-  });
-});
+
 
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);

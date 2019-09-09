@@ -78,8 +78,17 @@ let config = {
     onClickPiece: onClickPiece,
     onSnapEnd: onSnapEnd,
     xiangqi:game,
-    pieceTheme: '/library/xiangqiboardjs-0.2.0/img/xiangqipieces/wikipedia/{piece}.svg',
-    boardTheme: '/library/xiangqiboardjs-0.2.0/img/xiangqiboards/wikimedia/xiangqiboard.svg',
+    pieceTheme (piece){
+        // graphic theme for red pieces
+        if (piece.search(/r/) !== -1) {
+            return '/images/' + piece + '.png';
+        }
+
+        // traditional theme for black pieces
+        return '/images/' + piece + '.png';
+    },
+
+    boardTheme: '/images/ban_co_2.png',
 };
 board = Xiangqiboard('myBoard', config);
 

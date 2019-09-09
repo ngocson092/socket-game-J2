@@ -6,33 +6,72 @@
  * Released under the MIT license
  * https://github.com/lengyanyu258/xiangqiboardjs/blob/master/LICENSE
  *
- * Date: 13 Aug 2019
+ * Date: 14 Apr 2019
  */
 
+#myBoard div{
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
 .clearfix-5f3b5 {
   clear: both;
 }
 
 .board-1ef78 {
-  border: 2px solid #404040;
   box-sizing: content-box;
+  padding-bottom: 10px;
 }
-
+.piece-1e8b9{z-index:22222}
 .square-2b8ce {
   float: left;
   position: relative;
 
   /* disable any native browser highlighting */
   -webkit-touch-callout: none;
-    -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.highlight{z-index:1}
+
+.highlight:after {
+  box-shadow: inset 0 0 2px 2px #f96a2d;
+  border-radius: 4px;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: calc(50% - 10px)
+;
+  top: calc(50% - 10px);
+  z-index:-1;
+  background:#863614;opacity:.3;
 }
 
+
 .highlight1-e13fc, .highlight2-e0a03 {
-  box-shadow: inset 0 0 3px 3px yellow;
+  position:relative;
+
+}
+
+.highlight1-e13fc:after, .highlight2-e0a03:after {
+  box-shadow: inset 0 0 2px 2px #f96a2d;
+  border-radius: 4px;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: calc(50% - 10px)
+;
+  top: calc(50% - 10px);
+  z-index:-1;
+  background:#863614;opacity:.4;
+
+}
+.highlight1-e13fc img{
+  z-index:100000;
 }
 
 .notation-8c7a2 {
