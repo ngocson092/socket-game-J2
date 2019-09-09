@@ -1586,7 +1586,9 @@
 
 
    function isPieceCanMoveToSquare(square,target){
+     console.log({square,target});
 
+     console.log('xiangqi fen',config.xiangqi.fen());
        let moves = config.xiangqi.moves({
            square: square,
            verbose: true
@@ -1646,9 +1648,7 @@
                     currentSelectedPieceTarget = null
 
                     if (validSquare(location)) {
-                        console.log('ok',squareElsIds);
                         config.onClickPiece(location,squareElsIds);
-
                     }
                 }else{
                     if(currentSelectedPieceSource && currentSelectedPiece){

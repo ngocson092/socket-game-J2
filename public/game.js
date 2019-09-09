@@ -3,15 +3,31 @@
 
 let board = null;
 let game = new Xiangqi();
+let $board = $('#myBoard');
+let squareClass = 'square-2b8ce';
+function markStepBefore (source,target) {
+    console.log(target);
+    $board.find('.' + squareClass).removeClass('highlight-move-source');
+    $board.find('.square-' + source).addClass('highlight-move-source');
 
+    $board.find('.' + squareClass).removeClass('highlight-move-target');
+    $board.find('.square-' + target).addClass('highlight-move-target');
+
+}
 function removeGreySquares () {
     $('#myBoard .square-2b8ce').removeClass('highlight');
 }
 
-function greySquare (square) {
+function greySquare (square,notE) {
     let $square = $('#myBoard .square-' + square);
+    let $squarenotE = $('#myBoard .square-' + square).not('.square-'+notE);
+
+
 
     $square.addClass('highlight');
+    if($squarenotE.find('img').length){
+        $squarenotE.addClass('mark-attack')
+    }
 }
 
 function onDragStart (source, piece) {
@@ -27,6 +43,7 @@ function onDragStart (source, piece) {
 
 function onDrop (source, target) {
     console.log('onDrop',source, target);
+
     removeGreySquares();
 
     // see if the move is legal
@@ -34,7 +51,7 @@ function onDrop (source, target) {
         from: source,
         to: target
     });
-
+    markStepBefore(source,target);
     // illegal move
     if (move === null) return 'snapback';
 }
@@ -52,11 +69,11 @@ function onClickPiece (square,squareElsIds) {
     if (moves.length === 0) return;
 
     // highlight the square they moused over
-    greySquare(square);
+    greySquare(square,square);
 
     // highlight the possible squares for this piece
     for (let i = 0; i < moves.length; i++) {
-        greySquare(moves[i].to);
+        greySquare(moves[i].to,square);
     }
 }
 
@@ -65,7 +82,7 @@ function onClickOutPiece (square, piece) {
 }
 
 function onSnapEnd () {
-    board.position(game.fen());
+    board.position(board.fen());
 }
 
 let config = {
@@ -88,7 +105,7 @@ let config = {
         return '/images/' + piece + '.png';
     },
 
-    boardTheme: '/images/ban_co_2.png',
+    boardTheme: '/images/ban_co_3.png',
 };
 board = Xiangqiboard('myBoard', config);
 
@@ -98,41 +115,39 @@ $(document).ready(function () {
 
     $('#button').click(function () {
 
-        console.log(board);
-
+        console.log(
+            board.fen()
+        );
+        console.log(
+            game.fen()
+        );
 
         localStorage.setItem('history',JSON.stringify(game.history()))
-        localStorage.setItem('fen',JSON.stringify(game.fen()))
+        localStorage.setItem('game_fen',JSON.stringify(game.fen()))
 
     })
 
     $('#setB31Btn').on('click', function () {
+
+
         board.position('r1bakab1r/9/1cn2cn2/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/9/RNBAKABR1');
+
+        game  = new Xiangqi('r1bakab1r/9/1cn2cn2/p1p1p1p1p/9/9/P1P1P1P1P/1C2C1N2/9/RNBAKABR1 r - - 0 1');
+
+
     });
 
    $('#load-history').click(function () {
-
-
-
-       var history = JSON.parse(localStorage.getItem('history'))
-       var fen = JSON.parse(localStorage.getItem('fen'))
-
-
-       if(history.length){
-           var move = ''
-           for(var i=0;i<history.length;i++){
-
-               console.log(history[i].match(/.{1,2}/g));
-               move = history[i].match(/.{1,2}/g).join('-')
-               board.position(fen);
-               board.start()
-           }
-
-
-       }
-
-
+       let gamefen = JSON.parse(localStorage.getItem('game_fen'))
+       let boardfen =  gamefen.split(' ')[0]
+       board.position(boardfen);
+       game  = new Xiangqi(gamefen);
+       config.xiangqi = game
     })
+
+
+
+
 
 
 })
