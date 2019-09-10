@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>cotuong</title>
-  <link rel="stylesheet" href="/library/xiangqiboardjs-0.2.0/css/xiangqiboard-0.2.0.css" />
-</head>
-<body>
-<style type="text/css">
-  .piece-1e8b9 {cursor: pointer}
+.piece-1e8b9 {cursor: pointer}
 
 
 
-  .highlight:empty:after {
+.highlight:empty:after {
 
     border-radius: 4px;
     content: '';
@@ -24,9 +16,9 @@
     background: url(/images/chess_common_ziga.png);
     background-position: -116px -4px;
     box-shadow: initial;
-  }
+}
 
-  .mark-attack.highlight:not(:empty):after {
+.mark-attack.highlight:not(:empty):after {
 
     width: 100%;
     height: 100%;
@@ -41,9 +33,9 @@
     background-position: -266px -93px;
     box-shadow: initial;
     animation: initial;
-  }
+}
 
-  .highlight:not(:empty):after {
+.highlight:not(:empty):after {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -76,39 +68,39 @@
     animation-timing-function: linear;
 
 
-  }
+}
 
-  @-ms-keyframes spin {
+@-ms-keyframes spin {
     from { -ms-transform: rotate(0deg); }
     to { -ms-transform: rotate(360deg); }
-  }
-  @-moz-keyframes spin {
+}
+@-moz-keyframes spin {
     from { -moz-transform: rotate(0deg); }
     to { -moz-transform: rotate(360deg); }
-  }
-  @-webkit-keyframes spin {
+}
+@-webkit-keyframes spin {
     from { -webkit-transform: rotate(0deg); }
     to { -webkit-transform: rotate(360deg); }
-  }
-  @keyframes spin {
+}
+@keyframes spin {
     from {
-      transform:rotate(0deg);
+        transform:rotate(0deg);
     }
     to {
-      transform:rotate(360deg);
+        transform:rotate(360deg);
     }
-  }
-  .highlight {
+}
+.highlight {
     cursor: pointer;
     position: relative;
 
 
-  }
+}
 
-  .square-2b8ce{
+.square-2b8ce{
     position: relative;
-  }
-  .highlight-move-source:after {
+}
+.highlight-move-source:after {
     width: 50%;
     height: 50%;
     position: absolute;
@@ -121,8 +113,8 @@
     z-index: 10;
     box-shadow: initial;
     background-position: 2px -39px;
-  }
-  .highlight-move-target:after {
+}
+.highlight-move-target:after {
 
     width: calc(100% + 10px);
     height: calc(100% + 10px);
@@ -136,23 +128,3 @@
     z-index: 10;
     box-shadow: initial;
     background-position: 2px -92px;}
-
-
-</style>
-
-<div id="myBoard" style="width: 558px"></div>
-<button id="button">save</button>
-<button id="load-history">Load</button>
-<button id="setB31Btn">B31</button>
-<script src="/library/jquery-3.2.1.min.js" type="application/javascript"></script>
-<script src="/library/xiangqiboardjs-0.2.0/js/xiangqi.min.js" type="application/javascript"></script>
-<script src="/library/xiangqiboardjs-0.2.0/js/xiangqiboard-0.2.0.js" type="application/javascript"></script>
-<!--<script src="/library/xiangqiboardjs-0.2.0/js/goc/GOC-xiangqiboard-0.2.0.js" type="application/javascript"></script>-->
-
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/game.js"></script>
-
-
-</body>
-</html>

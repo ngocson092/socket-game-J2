@@ -2,6 +2,7 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var Moniker = require('moniker');
+var path = require('path');
 var elastical = require('elastical');
 const { Client } = require('@elastic/elasticsearch')
 var vnc = require('./src/server.js');
@@ -9,10 +10,28 @@ var port = process.env.PORT || 5000;
 
 var server = new vnc.Server();
 
-
-
+app.engine('ejs', require('express-ejs-extend')); // add this line
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'));
 
 app.use(express.static(__dirname + '/public'));
+
+app.get("/room/:id", function(req, res){
+    var id = req.params.id;
+
+    var title = 'room'
+    res.render('room', {
+        room: id,
+        title: title
+    });
+});
+app.get("/", function(req, res){
+
+    var title = 'Home'
+    res.render('home', {
+        title: title
+    });
+});
 
 
 var http = require('http').createServer(app);
@@ -112,9 +131,7 @@ var findUser = function(username) {
     }
 }
 
-app.get("/g/:id", function(req, res){
-  res.redirect('/?room=' + req.params.id);
-});
+
 
 
 http.listen(port, function(){

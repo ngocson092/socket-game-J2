@@ -4,8 +4,10 @@
     "description": "Vietnam Chess Network",
     "dependencies": {
         "@elastic/elasticsearch": "^7.3.0",
+        "ejs": "^2.7.1",
         "elastical": "latest",
         "express": "latest",
+        "express-ejs-extend": "0.0.1",
         "moniker": "latest",
         "socket.io": "latest"
     },
