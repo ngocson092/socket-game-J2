@@ -139,17 +139,72 @@
 
 
 </style>
-
+<audio id="sound_kill_piece"src="/sound/sound_kill_piece.m4a" ></audio>
+<audio id="sound_win"src="/sound/win_sound.m4a" ></audio>
+<audio id="sound_king_attack"src="/sound/sound_king_attack.m4a" ></audio>
+<audio id="sound_stepmove"src="/sound/sound_stepmove.m4a" ></audio>
+<audio id="sound_start_game"src="/sound/sound_start_game.m4a" ></audio>
+<audio id="sound_lose"src="/sound/sound_lose.m4a" ></audio>
 <div id="myBoard" style="width: 558px"></div>
 <button id="button">save</button>
 <button id="load-history">Load</button>
 <button id="setB31Btn">B31</button>
+<script src="/lodash_core.min.js" type="application/javascript"></script>
 <script src="/library/jquery-3.2.1.min.js" type="application/javascript"></script>
 <script src="/library/xiangqiboardjs-0.2.0/js/xiangqi.min.js" type="application/javascript"></script>
 <script src="/library/xiangqiboardjs-0.2.0/js/xiangqiboard-0.2.0.js" type="application/javascript"></script>
 <!--<script src="/library/xiangqiboardjs-0.2.0/js/goc/GOC-xiangqiboard-0.2.0.js" type="application/javascript"></script>-->
 
+<script>
 
+  MoveAudio=document.getElementById('sound_stepmove');
+  soundWinAudio=document.getElementById('sound_win');
+  KingAttackAudio=document.getElementById('sound_king_attack');
+  KillPieceAudio=document.getElementById('sound_kill_piece');
+  loseAudio=document.getElementById('sound_lose');
+  startGameAudio=document.getElementById('sound_start_game');
+  function sound() {
+
+    function attackKingSound() {
+      KingAttackAudio.currentTime=0;
+      KingAttackAudio.play();
+    }
+    function stepSound() {
+      MoveAudio.currentTime=0;
+      MoveAudio.play();
+    }
+    function hitPieceSound() {
+      KillPieceAudio.currentTime=0;
+      KillPieceAudio.play();
+    }
+
+    function startGame() {
+      startGameAudio.currentTime=0;
+      startGameAudio.play();
+    }
+    function loseSound() {
+      loseAudio.currentTime=0;
+      loseAudio.play();
+    }
+    function winSound() {
+      soundWinAudio.currentTime=0;
+      soundWinAudio.play();
+    }
+
+    return {
+      attackKingSound:attackKingSound,
+      stepSound:stepSound,
+      hitPieceSound:hitPieceSound,
+      startGame:startGame,
+      loseSound:loseSound,
+      winSound:winSound,
+
+    }
+  }
+
+  var GameSound = new sound();
+  GameSound.startGame()
+</script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/game.js"></script>
 

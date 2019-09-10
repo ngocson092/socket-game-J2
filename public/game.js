@@ -32,7 +32,9 @@ function greySquare (square,notE) {
 
 function onDragStart (source, piece) {
     // do not pick up pieces if the game is over
-    if (game.game_over()) return false;
+    if (game.game_over()) {
+        return false
+    };
 
     // or if it's not that side's turn
     if ((game.turn() === 'r' && piece.search(/^b/) !== -1) ||
@@ -44,6 +46,8 @@ function onDragStart (source, piece) {
 function onDrop (source, target) {
     console.log('onDrop',source, target);
 
+
+
     removeGreySquares();
 
     // see if the move is legal
@@ -54,11 +58,15 @@ function onDrop (source, target) {
     markStepBefore(source,target);
     // illegal move
     if (move === null) return 'snapback';
+
+
+
 }
 
 function onClickPiece (square,squareElsIds) {
     // get list of possible moves for this square
 
+    // var currentPieceLength = _.keys(game.);
 
     let moves = game.moves({
         square: square,
@@ -84,6 +92,9 @@ function onClickOutPiece (square, piece) {
 function onSnapEnd () {
     board.position(board.fen());
 }
+function onHitPiece () {
+    GameSound.hitPieceSound()
+}
 
 let config = {
     draggable: true,
@@ -95,6 +106,7 @@ let config = {
     onClickPiece: onClickPiece,
     onSnapEnd: onSnapEnd,
     xiangqi:game,
+    onHitPiece:onHitPiece,
     pieceTheme (piece){
         // graphic theme for red pieces
         if (piece.search(/r/) !== -1) {
@@ -104,8 +116,9 @@ let config = {
         // traditional theme for black pieces
         return '/images/' + piece + '.png';
     },
-
     boardTheme: '/images/ban_co_3.png',
+    sound:  GameSound,
+    yourTurn:  'r',
 };
 board = Xiangqiboard('myBoard', config);
 

@@ -1229,7 +1229,46 @@
       var newPosition = deepCopy(currentPosition)
       delete newPosition[currentSelectedPieceSource]
       newPosition[square] = currentSelectedPiece
-      console.log(newPosition);
+      console.log('currentPosition',_.keys(currentPosition).length);
+      console.log('newPosition',_.keys(newPosition).length);
+
+      console.log('currentPosition',_.keys(currentPosition).length);
+      console.log('newPosition',_.keys(newPosition).length);
+
+
+      if(config.xiangqi.game_over()){
+
+
+        if(game.turn() == config.yourTurn){
+          console.log('het co roi');
+          GameSound.attackKingSound()
+          GameSound.loseSound()
+        }else{
+          GameSound.winSound()
+        }
+
+
+
+      }else{
+
+
+
+        if(_.keys(currentPosition).length > _.keys(newPosition).length){
+          config.sound.hitPieceSound()
+          console.log('an quan');
+        }else{
+          config.sound.stepSound()
+        }
+        if(game.in_check()){
+          console.log('chieu tuong');
+          GameSound.attackKingSound()
+        }
+
+      }
+
+
+
+
 
       setCurrentPosition(newPosition)
 
@@ -1347,6 +1386,7 @@
     }
 
     function handleMovePiece (location) {
+
      // determine what the action should be
       var action = 'drop'
       if (location === 'offboard' && config.dropOffBoard === 'snapback') {
@@ -1412,6 +1452,9 @@
         dropDraggedPieceOnSquare(location)
 
         resetState()
+
+
+
 
     }
 
