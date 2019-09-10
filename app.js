@@ -39,7 +39,7 @@ io.on('connection', function (socket) {
         server.join(user.name, room);
         board = server.boards[room];
         socket.emit("board", board);
-        updateNote();
+
     });
     socket.on('disconnect', function() {
         removeUser(user);
@@ -54,81 +54,31 @@ io.on('connection', function (socket) {
     socket.on('send', function(data) {
         try {
             io.sockets.in(room).emit("board", vnc.Board.prototype.move.call(board, data.message));
-            updateNote();
-            client.index('vinachess', 'server', {boards: server.boards}, {id: 'latest', create: false}, function (err, res) {
-                if (err) console.log(err);
-                else console.log(res);
-            });
         } catch (e) {
             handleException(e);
         }
     });
-    socket.on('undo', function() {
-        try {
-            io.sockets.in(room).emit("board", vnc.Board.prototype.undo.call(board));
-            updateNote();
-        } catch (e) {
-            handleException(e);
-        }
-    });
-    socket.on('redo', function() {
-        try {
-            io.sockets.in(room).emit("board", vnc.Board.prototype.redo.call(board));
-            updateNote();
-        } catch (e) {
-            handleException(e);
-        }
-    });
+
     socket.on('new', function() {
         try {
             io.sockets.in(room).emit("board", vnc.Board.prototype.newGame.call(board));
-            updateNote();
         } catch (e) {
             handleException(e);
         }
     });
-    socket.on('select', function(data) {
-        try {
-            io.sockets.in(room).emit("board", vnc.Board.prototype.select.call(board, data.index, data.path));
-            updateNote();
-        } catch (e) {
-            handleException(e);
-        }
-    });
+
     socket.on('loadgame', function(data) {
         try {
-            io.sockets.in(room).emit("board", vnc.Board.prototype.loadGame.call(board, data.note));
-            updateNote();
+            io.sockets.in(room).emit("board", vnc.Board.prototype.loadGame.call());
         } catch (e) {
             handleException(e);
         }
     });
-    socket.on('addnote', function(data) {
-        try {
-            client.index('note', room, data, {id: JSON.stringify(board.grid), create: false}, function (err, res) {
-                if (err) console.log(err);
-                else console.log(res);
-            });
-        } catch (e) {
-            handleException(e);
-        }
-    });
+
     var handleException = function(e) {
         console.log(e);
     };
-    var updateNote = function() {
-        client.get('note', JSON.stringify(board.grid), function (err, doc, res) {
-            if (doc) {
-                io.sockets.in(room).emit('note', doc);
-            } else {
-                client.get('note', JSON.stringify(vnc.mirror(board.grid)), function (err2, doc2, res2) {
-                    doc = {note: ''};
-                    if (doc2) doc = {note: vnc.neutralize(doc2.note)};
-                    io.sockets.in(room).emit('note', doc);
-                });
-            }
-        });
-    }
+
 });
 
 var users = [];
