@@ -128,3 +128,92 @@
     z-index: 10;
     box-shadow: initial;
     background-position: 2px -92px;}
+
+
+.game-popup{
+    position: relative;
+    left: 0;
+    right:0;
+    width: 100%;
+    height: 100%;
+}
+
+.game-popup .king-attacked:after,.game-popup .start-game:after,.game-popup .win-game:after,.game-popup .lose-game:after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    content: '';
+    top: 0;
+    left: 0;
+    opacity: 1;
+    z-index: 10;
+    box-shadow: initial;
+}
+.game-popup .king-attacked,.game-popup .win-game,.game-popup .lose-game,.game-popup .start-game {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    display: none;
+    top: -465px;
+    left: 121px;
+}
+.game-popup .king-attacked:after {
+    background: url(/images/chess_common_ziga.png);
+    background-size: 1000px;
+    background-position: -1px -496px;
+
+}.game-popup .start-game:after {
+     background: url(/images/start-game.png);
+     background-size: 300px;
+     background-position: -1px -0px;
+     height: 150px;
+     top: 58px;
+     -webkit-animation: zoomin 2s ease-in infinite;
+     animation: zoomin 2s ease-in infinite;
+     transition: all .2s ease-in-out;
+     overflow: hidden;
+
+}
+.game-popup .win-game:after,.game-popup .lose-game:after {
+    background: url(/images/chess_common_ziga.png);
+    background-size: 1000px;
+    background-position: -18px -241px;
+    height: 150px;
+    top: 58px;
+    overflow: hidden;
+    left: 68px;
+    width: 180px;
+    -webkit-animation: zoomin 5s ease-in infinite;
+    animation: zoomin 5s ease-in infinite;
+    transition: all 5s ease-in-out;
+    overflow: hidden;
+}
+.game-popup .lose-game:after {
+    background-position: -817px -90px;
+}
+
+/* Zoom in Keyframes */
+@-webkit-keyframes zoomin {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+}
+@keyframes zoomin {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+} /*End of Zoom in Keyframes */
+
+/* Zoom out Keyframes */
+@-webkit-keyframes zoomout {
+    0% {transform: scale(1);}
+    50% {transform: scale(0.67);}
+    100% {transform: scale(1);}
+}
+@keyframes zoomout {
+    0% {transform: scale(1);}
+    50% {transform: scale(0.67);}
+    100% {transform: scale(1);}
+}/*End of Zoom out Keyframes */
+

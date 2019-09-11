@@ -1243,8 +1243,10 @@
           console.log('het co roi');
           config.sound.attackedKing()
           config.sound.lose()
+          config.popup.loseGame()
         }else{
           config.sound.win()
+          config.popup.winGame()
         }
 
 
@@ -1261,6 +1263,7 @@
         if(config.xiangqi.in_check()){
           console.log('chieu tuong');
           config.sound.attackedKing()
+          config.popup.attackedKing()
         }
 
       }

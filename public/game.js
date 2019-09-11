@@ -44,18 +44,84 @@ window['Game'] =function () {
 
             }
         },
+
+        popup(){
+            var _this = this;
+
+            return {
+
+                startGame(){
+
+                    setTimeout(function () {
+
+                        var startGame = setInterval(function () {
+
+                            $(document).ready(function () {
+                                if($board.find('.game-popup .start-game').length && $('#audio-list').find('audio').length){
+                                    _this.sound().startGame()
+                                    $board.find('.game-popup .start-game').fadeIn(400)
+                                    setTimeout(function () {
+                                        $board.find('.game-popup .start-game').fadeOut()
+                                    },800)
+                                    clearInterval(startGame)
+                                }
+                            })
+
+                        },200)
+
+                    },300)
+
+
+                },
+                attackedKing(){
+
+                        if($board.find('.game-popup .king-attacked').length && $('#audio-list').find('audio').length){
+                            _this.sound().attackedKing()
+                            $board.find('.game-popup .king-attacked').fadeIn(400)
+                            setTimeout(function () {
+                                $board.find('.game-popup .king-attacked').fadeOut()
+                            },800)
+
+                        }
+
+                },
+                winGame(){
+                    if($board.find('.game-popup .win-game').length && $('#audio-list').find('audio').length){
+                        $board.find('.game-popup .win-game').fadeIn(400)
+                    }
+
+                },
+                loseGame(){
+                    if($board.find('.game-popup .lose-game').length && $('#audio-list').find('audio').length){
+                        $board.find('.game-popup .lose-game').fadeIn(400)
+                    }
+
+                }
+            }
+
+        },
         initGame () {
-            this.sound().startGame()
+            this.popup().startGame()
+
+
             this.board = Xiangqiboard(myBoard, this.getConfig());
             boardInstance = this.board;
+
+            $board.append(`
+                <div class="game-popup">
+                    <div class="king-attacked"></div>
+                    <div class="start-game"></div>
+                    <div class="win-game"></div>
+                    <div class="lose-game"></div>
+                </div>
+           
+            `)
+
         },
 
         getConfig  () {
 
             var coreGame = this.Xiangqi;
-
-
-
             function markStepBefore(source, target) {
                 $board.find('.' + squareClass).removeClass('highlight-move-source');
                 $board.find('.square-' + source).addClass('highlight-move-source');
@@ -152,6 +218,7 @@ window['Game'] =function () {
                 sound: this.sound(),
                 yourTurn: 'r',
                 xiangqi: this.Xiangqi,
+                popup: this.popup(),
             }
         }
     };
