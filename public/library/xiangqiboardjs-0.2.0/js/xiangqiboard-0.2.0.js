@@ -1239,32 +1239,32 @@
       if(config.xiangqi.game_over()){
 
 
-        if(game.turn() == config.yourTurn){
+        if(config.xiangqi.turn() == config.yourTurn){
           console.log('het co roi');
-          GameSound.attackKingSound()
-          GameSound.loseSound()
+          config.sound.attackedKing()
+          config.sound.lose()
         }else{
-          GameSound.winSound()
+          config.sound.win()
         }
 
 
 
       }else{
 
-
-
         if(_.keys(currentPosition).length > _.keys(newPosition).length){
-          config.sound.hitPieceSound()
+          config.sound.killPiece()
           console.log('an quan');
         }else{
-          config.sound.stepSound()
+          config.sound.stepMove()
         }
-        if(game.in_check()){
+        console.log(config.Xiangqi);
+        if(config.xiangqi.in_check()){
           console.log('chieu tuong');
-          GameSound.attackKingSound()
+          config.sound.attackedKing()
         }
 
       }
+
 
 
 
