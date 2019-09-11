@@ -13,13 +13,20 @@ window['Game'] =function () {
         sound () {
             return {
                 playAudio: function (type) {
-                    let audioElement= $('#sound_' + type)[0]
 
-                    if(typeof audioElement != 'undefined'){
-                        console.log('#sound_' + type);
-                        audioElement.currentTime = 0;
-                        audioElement.play();
+
+                    console.log('#sound_' + type);
+
+                    var media =  document.querySelector('#sound_' + type);
+                    var playPromise = media.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            console.log('e',_);
+                        }).catch(error => {
+                            console.log({error});
+                        });
                     }
+
 
 
                 },
@@ -141,10 +148,9 @@ window['Game'] =function () {
             }
 
             function onDrop(source, target) {
-                console.log('onDrop', source, target);
+
                 removeGreySquares();
 
-                // see if the move is legal
                 let move = coreGame.move({
                     from: source,
                     to: target
@@ -156,12 +162,6 @@ window['Game'] =function () {
 
             }
             function onClickPiece(square, squareElsIds) {
-                console.log('onClickPiece');
-                console.log(this);
-
-                // get list of possible moves for this square
-
-                // var currentPieceLength = _.keys(game.);
 
                 let moves = coreGame.moves({
                     square: square,

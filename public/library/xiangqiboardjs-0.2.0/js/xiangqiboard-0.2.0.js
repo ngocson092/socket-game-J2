@@ -669,7 +669,7 @@
           typeof console === 'object' &&
           typeof console.log === 'function'
         ) {
-        console.log(errorText)
+
         if (arguments.length >= 2) {
           console.log(obj)
         }
@@ -1160,7 +1160,7 @@
     }
 
     function snapbackDraggedPiece () {
-        console.log('snapbackDraggedPiece');
+
       // there is no "snapback" for spare pieces
       if (draggedPieceSource === 'spare') {
         trashDraggedPiece()
@@ -1229,18 +1229,13 @@
       var newPosition = deepCopy(currentPosition)
       delete newPosition[currentSelectedPieceSource]
       newPosition[square] = currentSelectedPiece
-      console.log('currentPosition',_.keys(currentPosition).length);
-      console.log('newPosition',_.keys(newPosition).length);
 
-      console.log('currentPosition',_.keys(currentPosition).length);
-      console.log('newPosition',_.keys(newPosition).length);
 
 
       if(config.xiangqi.game_over()){
 
 
         if(config.xiangqi.turn() == config.yourTurn){
-          console.log('het co roi');
           config.sound.attackedKing()
           config.sound.lose()
           config.popup.loseGame()
@@ -1255,13 +1250,10 @@
 
         if(_.keys(currentPosition).length > _.keys(newPosition).length){
           config.sound.killPiece()
-          console.log('an quan');
         }else{
           config.sound.stepMove()
         }
-        console.log(config.Xiangqi);
         if(config.xiangqi.in_check()){
-          console.log('chieu tuong');
           config.sound.attackedKing()
           config.popup.attackedKing()
         }
@@ -1303,7 +1295,7 @@
 
     function beginDraggingPiece (source, piece, x, y) {
 
-        console.log('beginDraggingPiece0');
+
       // run their custom onDragStart function
       // their custom onDragStart function can cancel drag start
       if (isFunction(config.onDragStart) &&
@@ -1348,7 +1340,7 @@
 
     function updateDraggedPiece (x, y) {
 
-        console.log(x, y);
+
 
       // put the dragged piece over the mouse cursor
       $draggedPiece.css({
@@ -1632,15 +1624,11 @@
 
 
    function isPieceCanMoveToSquare(square,target){
-     console.log({square,target});
 
-     console.log('xiangqi fen',config.xiangqi.fen());
        let moves = config.xiangqi.moves({
            square: square,
            verbose: true
        });
-
-       console.log({moves,square});
 
        // exit if there are no moves available for this square
        if (moves.length === 0) return false;
@@ -1685,8 +1673,6 @@
 
 
                 var currentPieceTurn = piece.charAt(0);
-                console.log('turn',config.xiangqi.turn());
-                console.log('currentPieceTurn',currentPieceTurn);
                 if(currentPieceTurn == config.xiangqi.turn()){
 
                     currentSelectedPiece = piece
@@ -1743,19 +1729,12 @@
         currentSelectedPieceTarget = null
     }
     function mousedownSquare (evt) {
-      console.log('mousedownSquare');
+
       captureSquareOffsets()
       // do nothing if there is no piece on this square
       var _this = $(this);
       var location = isXYOnSquare(evt.pageX, evt.pageY)
       setHighlight(_this,location)
-
-        console.log({currentSelectedPiece,
-            currentSelectedPieceSource,
-            currentSelectedPieceTarget});
-
-
-
 
 
     }
@@ -1809,7 +1788,7 @@
 
       // prevent screen from scrolling
       evt.preventDefault()
-        console.log('touchmoveWindow');
+
 
       updateDraggedPiece(evt.originalEvent.changedTouches[0].pageX,
                          evt.originalEvent.changedTouches[0].pageY)
@@ -1821,7 +1800,7 @@
 
       // do nothing if we are not dragging a piece
       if (!isSelectedPiece) return
-        console.log('mouseupWindow');
+
       // get the location
 
 
@@ -1897,12 +1876,7 @@
       // prevent "image drag"
       $('body').on('mousedown mousemove', '.' + CSS.piece, stopDefault)
 
-        // mouse drag pieces
-
-        console.log(CSS.sparePieces + ' .' + CSS.piece);
         $board.on('mousedown', '.' + CSS.square, mousedownSquare)
-
-
 
         // mouse enter / leave square
       $board
